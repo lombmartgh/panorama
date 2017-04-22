@@ -1,0 +1,8 @@
+name = "Dinamic Rol"
+description = "Permite asignar un rol dinamicamente a un usuario de PANORAMA que se autentica"
+core = 7.x
+package = LOMBAO
+files[]= dinamic_rol.module
+files[]= dinamic_rol.admin.inc
+files[]= dinamic_rol.install
+configure= admin/config/workflow/dinamic_role

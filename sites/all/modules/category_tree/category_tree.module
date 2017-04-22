@@ -1,0 +1,56 @@
+<?php
+/**
+ * @file
+ * Code for the Search view feature.
+ */
+
+
+function taxonomy_get_nested_tree($terms = array(), $max_depth = NULL, $parent = 0, $parents_index = array(), $depth = 0) {
+  $return = array();
+  if (is_int($terms)) {
+    $terms = taxonomy_get_tree($terms);
+  }
+
+  foreach ($terms as $term) {
+    foreach ($term->parents as $term_parent) {
+      if ($term_parent == $parent) {
+        $return[$term->tid] = $term;
+      }
+      else {
+        $parents_index[$term_parent][$term->tid] = $term;
+      }
+    }
+  }
+  if (count($return) > 0) {
+    foreach ($return as &$term) {
+      if (isset($parents_index[$term->tid]) && (is_null($max_depth) || $depth < $max_depth)) {
+        $term->children = taxonomy_get_nested_tree($parents_index[$term->tid], $max_depth, $term->tid, $parents_index, $depth + 1);
+      }
+    }
+  }
+  return $return;
+
+}
+
+function output_taxonomy_nested_tree($tree) {
+  $output = "";
+  global $base_url;
+  if (count($tree)) {
+    $output = '<ul class="taxonomy-tree">';
+    foreach ($tree as $term) {
+      if (!isset($term->children)) {
+        $output .= '<li class="taxonomy-list taxonomy-term-child col-sm-3">';
+        $output .= '<a href=' .$base_url. "/productos/" . $term->name . '>' . $term->name . '</a>';
+      }
+      else {
+        $output .= '<li class="taxonomy-list taxonomy-term-parent col-sm-3">';
+        $output .= '<a class="parent-category" href=' .$base_url. "/productos/" . $term->name . '>' . $term->name . '</a>';
+        //$output .= '<h5 class="parent-category">' . $term->name . '</h5>';
+        $output .= output_taxonomy_nested_tree($term->children);
+      }
+      $output .= '</li>';
+    }
+    $output .= '</ul>';
+  }
+  return $output;
+}

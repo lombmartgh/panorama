@@ -1,0 +1,70 @@
+<?php
+
+/**
+ * Implements hook_help().
+ */
+function dinamic_role_help($path, $arg) {
+    switch ($path) {
+        // Ayuda general para el módulo Visits counter
+        case 'admin/help#dinamic_role':
+            return '<p>' . t('Este módulo permite realizar la asignacion de roles dinamicamente a los usuarios de PANORAMA cuando se crean.') . '</p>';
+    }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function dinamic_role_menu() {
+    $items['admin/config/workflow/dinamic_role'] = array(
+        'title' => t('Asignación de Roles'),
+        'description' => t('Configuración de la Asignación de Roles.'),
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('dinamic_role_admin_settings'),
+        'access callback' => 'user_access',
+        'access arguments' => array('administer site configuration'),
+        'type' => MENU_NORMAL_ITEM,
+        'file' => 'dinamic_role.admin.inc',
+    );
+    return $items;
+}
+
+/**
+ * Implements hook_user_insert().
+ * validando que solo se asigne el rol de user_panorama
+ */
+function dinamic_role_user_insert(&$edit, &$account, $category) {
+
+    //se carga el user que se acaba de crear
+    $user = user_load($account->uid);
+    //se obtienen los roles del user que se acaban de crear
+        $user_roles = $user->roles;
+        //obtener roles activos en la administracion del modulo
+        $roles_activos = listado_roles();
+        //asigno a los roles del user los nuevos roles activados en admin
+        foreach ($roles_activos as $rol) {
+            $account->roles[user_role_load_by_name($rol)->rid] = $rol;
+//        $user_roles[user_role_load_by_name($rol)->rid] = $rol;
+        }
+        //se guardan los cambios
+        user_save($user, array('roles' => $user_roles));
+    
+}
+
+function listado_roles() {
+    $listado = variable_get("dr_roles");
+    if (empty($listado)) {
+        $listado = array();
+    }
+    $roles = array();
+
+    foreach ($listado as $rol) {
+        if ($rol != "0") {
+            $roles[] = $rol;
+        }
+    }
+    return $roles;
+}
+
+
+
+

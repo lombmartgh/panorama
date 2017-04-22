@@ -1,0 +1,5 @@
+name = category tree
+description = category menu tree
+core = 7.x
+package = Custom
+version = 7.x-1.0

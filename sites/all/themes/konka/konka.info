@@ -1,0 +1,62 @@
+; $Id$
+name = KONKA
+description = Tema de Konka.
+version = 1.0
+core = 7.x
+
+
+
+stylesheets[screen][] = css/bootstrap.css
+stylesheets[screen][] = css/custom.css
+stylesheets[screen][] = css/bootstrap.min.css
+stylesheets[screen][] = css/style.default.css
+stylesheets[screen][] = css/animate.min.css
+stylesheets[screen][] = css/owl.carousel.css
+stylesheets[screen][] = css/responsive.css
+stylesheets[all][] = css/font-awesome.css
+
+scripts[] = js/bootstrap.min.js
+scripts[] = js/scripts.js
+scripts[] = js/front.js
+scripts[] = js/waypoints.min.js
+
+
+regions[content] = Contenido
+regions[top] = Registro
+regions[menu] = Menu
+regions[buscador] = buscador
+regions[banner] = Banner
+regions[publicidad] = Publicidad
+regions[productosrebajas] = Productosnuevosrebajas
+regions[productoscomentados] = Productosmascomentados
+regions[paginas] = Paginas
+regions[topcategories] = TopCategorias
+regions[findus] = FindUs
+regions[boletin] = Boletin
+regions[izquierda] = Izquierda
+
+regions[mision] = Mision
+regions[vision] = Vision
+regions[address] = Direccion de Contacto
+regions[callcenter] = Centro de Llamadas
+regions[support] = Soporte
+regions[mapacontacto] = Mapa de Contacto
+
+
+
+
+; SETTINGS
+;----------------------------------------------------
+;settings[breadcrumb_delimiter] = ' » '
+;settings[breadcrumb_display] = 1
+settings[display_social] = 1
+settings[footer_developed] = 1
+settings[footer_developedby] = "LombaoEstudios"
+settings[mail_to] = "user@lombaoestudios.com"
+settings[footer_developedby_url] = "http://lombaoestudios.com/"
+
+settings[facebook_url] = "https://www.facebook.com"
+settings[twitter_url] = "https://twitter.com"
+settings[youtube_url] = "https://youtube.com"
+settings[gplus_url] = "https://plus.google.com"
+settings[instagram_url] = "http://instagram.com"

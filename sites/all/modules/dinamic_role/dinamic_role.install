@@ -1,0 +1,7 @@
+<?php
+/**
+ * Implements hook_uninstall().
+ */
+function dinamic_role_uninstall() {
+    variable_del('dr_roles');
+}
